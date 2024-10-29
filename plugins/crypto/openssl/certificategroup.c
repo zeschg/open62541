@@ -874,7 +874,8 @@ UA_CertificateUtils_getKeySize(UA_ByteString *certificate,
         return UA_STATUSCODE_BADINTERNALERROR;
     }
 
-    if(EVP_PKEY_base_id(pkey) == EVP_PKEY_RSA) {
+    if((EVP_PKEY_base_id(pkey) == EVP_PKEY_RSA) ||
+        (EVP_PKEY_base_id(pkey) == EVP_PKEY_EC)) {
 #if (OPENSSL_VERSION_NUMBER >= 0x30000000L)
         *keySize = EVP_PKEY_get_size(pkey) * 8;
 #else
